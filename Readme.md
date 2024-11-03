@@ -238,6 +238,101 @@ Service classes encapsulate business logic and coordinate between repositories a
 
 ---
 
+# Products
+
+- **Retrieve Product List**
+  - `GET /api/products/`
+  - **Description:** Returns a list of all available products. Can be filtered by category.
+  - **Query Parameters:**
+    - `category_id` (optional) — UUID of the category to filter products.
+
+- **Retrieve Product Details**
+  - `GET /api/products/{product_id}/`
+  - **Description:** Returns information about a specific product.
+  - **Path Parameters:**
+    - `product_id` — UUID of the product.
+
+- **Add New Product**
+  - `POST /api/products/`
+  - **Description:** Creates a new product.
+  - **Request Body (JSON):**
+    - `name` — name of the product.
+    - `category_id` — UUID of the category.
+    - `price` — price of the product.
+    - `stock` — quantity in stock.
+
+- **Update Product**
+  - `PUT /api/products/{product_id}/`
+  - **Description:** Updates information about a product (price, discount, stock availability).
+  - **Path Parameters:**
+    - `product_id` — UUID of the product.
+  - **Request Body (JSON):**
+    - Any fields of the product that need updating (`name`, `price`, `stock`, `discount`).
+
+- **Delete Product**
+  - `DELETE /api/products/{product_id}/`
+  - **Description:** Deletes a product from the database.
+  - **Path Parameters:**
+    - `product_id` — UUID of the product.
+
+# Reservations
+
+- **Create Reservation**
+  - `POST /api/reservations/`
+  - **Description:** Reserves a specific quantity of a product.
+  - **Request Body (JSON):**
+    - `product_id` — UUID of the product.
+    - `quantity` — quantity to reserve.
+
+- **Cancel Reservation**
+  - `DELETE /api/reservations/{reservation_id}/`
+  - **Description:** Cancels a product reservation.
+  - **Path Parameters:**
+    - `reservation_id` — UUID of the reservation.
+
+# Sales
+
+- **Register Sale**
+  - `POST /api/sales/`
+  - **Description:** Registers the sale of a product.
+  - **Request Body (JSON):**
+    - `product_id` — UUID of the product.
+    - `quantity` — quantity of the product sold.
+
+- **Retrieve Sales Report**
+  - `GET /api/sales/`
+  - **Description:** Returns a report of sold products.
+  - **Optional Query Parameters:**
+    - `start_date` — start date of the period.
+    - `end_date` — end date of the period.
+    - `category_id` — UUID of the category for filtering.
+
+# Categories
+
+- **Retrieve Category List**
+  - `GET /api/categories/`
+  - **Description:** Returns a list of all categories.
+
+- **Add New Category**
+  - `POST /api/categories/`
+  - **Description:** Creates a new category.
+  - **Request Body (JSON):**
+    - `name` — name of the category.
+    - `parent_category_id` (optional) — UUID of the parent category.
+
+# Promotions
+
+- **Set Discount on Product**
+  - `PUT /api/products/{product_id}/promotion`
+  - **Description:** Sets a discount on a product.
+  - **Path Parameters:**
+    - `product_id` — UUID of the product.
+  - **Request Body (JSON):**
+    - `discount_percentage` — discount percentage.
+
+
+---
+
 ## Error Handling and HTTP Status Codes
 
 The API endpoints return the following HTTP status codes:
@@ -298,20 +393,6 @@ The project uses `punq` for dependency injection, ensuring a flexible and testab
 
 ---
 
-## Configuration and Running the Application
-
-1. **Configuration File**: `config.py` loads environment variables and database URLs.
-
-2. **Run locally with Poetry**:
-   ```bash
-   poetry run uvicorn app.main:app --reload
-   ```
-
-3. **Database Migrations** (if applicable):
-   - Use Alembic or similar tool to handle migrations.
-
----
-
 ## Testing
 
 1. **Testing Framework**: `pytest`.
@@ -324,34 +405,3 @@ The project uses `punq` for dependency injection, ensuring a flexible and testab
 ```bash
 pytest
 ```
-
----
-
-## Code Style and Documentation
-
-- Adhere to **PEP 8** guidelines for Python code style.
-- Type annotations are used throughout the code for better readability.
-- Each module and class includes **docstrings**.
-
----
-
-## Docker Integration
-
-1. **Dockerfile**: Builds the application image with Poetry dependencies.
-2. **docker-compose.yml**: Defines multi-service setup (e.g., API and PostgreSQL database).
-
-### Commands
-
-- **Build Docker image**:
-   ```bash
-   docker-compose up --build
-   ```
-
-- **Run application**:
-   ```bash
-   docker-compose up
-   ```
-
----
-
-This `README.md` serves as a comprehensive guide to setting up the architecture for the FastAPI e-commerce API project, covering all aspects from structure and business rules to configuration and testing.
