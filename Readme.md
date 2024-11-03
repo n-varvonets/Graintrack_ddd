@@ -55,13 +55,19 @@ online_store/
 │   ├── config.py              # Configuration management
 │   ├── __init__.py
 │
-│   ├── domain/                # Core business logic (Entities and Domain Services)
-│   │   ├── entities/
+│   ├── domain/                # Core business logic (Entities, Value Objects, and Domain Services)
+│   │   ├── entities/          # Entities to represent core domain objects
 │   │   │   ├── base_entity.py
 │   │   │   ├── product.py
 │   │   │   ├── category.py
 │   │   │   ├── reservation.py
 │   │   │   ├── sale.py
+│   │   │   └── __init__.py
+│   │   ├── values/            # Value Objects representing specific domain values
+│   │   │   ├── base_value_object.py
+│   │   │   ├── price.py
+│   │   │   ├── quantity.py
+│   │   │   ├── discount.py
 │   │   │   └── __init__.py
 │   │   ├── services/          # Domain-specific logic for each entity
 │   │   │   ├── product_service.py
@@ -118,21 +124,33 @@ online_store/
 │   │   │   ├── sale_schema.py
 │   │   │   └── __init__.py
 │   │   └── __init__.py
-│
 │   └── __init__.py
 │
-├── tests/                      # Test suite for the application
-│   ├── conftest.py
-│   ├── domain/
+├── tests/
+│   │── conftest.py
+│   │── domain/
 │   │   ├── entities/
+│   │   │   ├── __init__.py
+│   │   │   └── test_product.py
 │   │   ├── services/
+│   │   │   ├── __init__.py
+│   │   │   ├── test_product_service.py
+│   │   │   ├── test_category_service.py
+│   │   │   ├── test_reservation_service.py
+│   │   │   └── test_sale_service.py
 │   │   └── __init__.py
-│   ├── application/
-│   │   └── __init__.py
-│   ├── infrastructure/
+│   │── application/
+│   │   ├── __init__.py
+│   │   └── test_interfaces.py
+│   │── infrastructure/
 │   │   ├── repositories/
-│   │   └── __init__.py
-│   ├── presentation/
+│   │   │   ├── in_memory/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── test_in_memory_product_repository.py
+│   │   │   │   └── ... (другие тесты)
+│   │   │   └── __init__.py
+│   │   ├── __init__.py
+│   │── presentation/
 │   │   ├── api/
 │   │   │   └── v1/
 │   │   │       ├── test_products.py
@@ -142,10 +160,8 @@ online_store/
 │   │   │       └── __init__.py
 │   │   └── __init__.py
 │   └── __init__.py
-└── ...
+└─
 ```
-
-
 ---
 
 ## Entities

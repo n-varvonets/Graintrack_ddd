@@ -18,6 +18,7 @@ app-down:
 app-logs:
 	$(LOGS) $(APP_CONTAINER) -f
 
+
 .PHONY: app-shell
 app-shell:
 	$(EXEC) $(APP_CONTAINER) /bin/bash

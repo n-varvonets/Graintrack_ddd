@@ -5,6 +5,7 @@ router = APIRouter(
     tags=["Product"],
 )
 
+
 def create_app() -> FastAPI:
     app = FastAPI(
         title='Graintrack DDD project',
