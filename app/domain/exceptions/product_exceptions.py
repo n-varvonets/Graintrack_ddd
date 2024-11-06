@@ -2,12 +2,12 @@
 
 from dataclasses import dataclass
 import uuid
-from app.domain.exceptions.base_exception import ApplicationException
+from domain.exceptions.base_exception import ApplicationException
 
 
 @dataclass(eq=False)
 class ProductNotFoundException(ApplicationException):
-    product_id: uuid.UUID
+    product_id: str
 
     @property
     def message(self):
@@ -26,7 +26,7 @@ class InvalidDiscountException(ApplicationException):
 
 @dataclass(eq=False)
 class InsufficientStockException(ApplicationException):
-    product_id: uuid.UUID
+    product_id: str
     requested_quantity: int
     available_stock: int
 

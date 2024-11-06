@@ -12,7 +12,7 @@ class Quantity(BaseValueObject[int]):
 
     def validate(self):
         if self.value <= 0:
-            raise ValueError("Quantity must be a positive integer.")
+            raise ValueError(f"Quantity must be a positive integer. Not {self.value}")
 
     def as_generic_type(self):
         return str(self.value)

@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 from typing import List, Optional
-from app.domain.entities.product import Product
+from domain.entities.product import Product
 
 class ProductRepositoryInterface(ABC):
     @abstractmethod

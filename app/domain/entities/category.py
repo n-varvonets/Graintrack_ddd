@@ -5,6 +5,7 @@ from typing import Optional
 from .base_entity import BaseEntity
 import uuid
 
+
 @dataclass
 class Category(BaseEntity):
     name: str

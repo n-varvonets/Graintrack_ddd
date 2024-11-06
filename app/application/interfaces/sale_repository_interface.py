@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 from datetime import datetime
-from app.domain.entities.sale import Sale
+from domain.entities.sale import Sale
 
 
 class SaleRepositoryInterface(ABC):

@@ -1,9 +1,9 @@
 # app/infrastructure/repositories/in_memory/in_memory_category_repository.py
 
 from typing import List, Optional
-from app.domain.entities.category import Category
-from app.application.interfaces.category_repository_interface import CategoryRepositoryInterface
-from app.domain.exceptions.category_exceptions import CategoryNotFoundException
+from domain.entities.category import Category
+from application.interfaces.category_repository_interface import CategoryRepositoryInterface
+from domain.exceptions.category_exceptions import CategoryNotFoundException
 
 
 class InMemoryCategoryRepository(CategoryRepositoryInterface):
@@ -14,10 +14,10 @@ class InMemoryCategoryRepository(CategoryRepositoryInterface):
         self.categories[category.oid] = category
         return category
 
-    def get_by_id(self, category_id: str) -> Optional[Category]:
+    async def get_by_id(self, category_id: str) -> Optional[Category]:
         category = self.categories.get(category_id)
         if not category:
-            raise CategoryNotFoundException(category_id=category_id)
+            raise CategoryNotFoundException(category_id)
         return category
 
     def update(self, category: Category) -> None:
@@ -38,3 +38,6 @@ class InMemoryCategoryRepository(CategoryRepositoryInterface):
             category for category in self.categories.values()
             if category.parent_category_id == parent_category_id
         ]
+
+    def clear(self):
+        self.categories.clear()

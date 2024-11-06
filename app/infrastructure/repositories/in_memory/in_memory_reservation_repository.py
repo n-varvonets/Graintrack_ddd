@@ -1,9 +1,9 @@
 # app/infrastructure/repositories/in_memory/in_memory_reservation_repository.py
 
 from typing import List, Optional
-from app.domain.entities.reservation import Reservation
-from app.application.interfaces.reservation_repository_interface import ReservationRepositoryInterface
-from app.domain.exceptions.reservation_exceptions import ReservationNotFoundException
+from domain.entities.reservation import Reservation
+from application.interfaces.reservation_repository_interface import ReservationRepositoryInterface
+from domain.exceptions.reservation_exceptions import ReservationNotFoundException
 
 
 class InMemoryReservationRepository(ReservationRepositoryInterface):

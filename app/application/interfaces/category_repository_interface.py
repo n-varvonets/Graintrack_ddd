@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 from typing import List, Optional
-from app.domain.entities.category import Category
+from domain.entities.category import Category
 
 class CategoryRepositoryInterface(ABC):
     @abstractmethod

@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 import uuid
-from app.domain.exceptions.base_exception import ApplicationException
+from domain.exceptions.base_exception import ApplicationException
 
 
 @dataclass(eq=False)

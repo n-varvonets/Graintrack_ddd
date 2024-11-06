@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 from typing import List, Optional
-from app.domain.entities.reservation import Reservation
+from domain.entities.reservation import Reservation
 
 
 class ReservationRepositoryInterface(ABC):

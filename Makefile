@@ -22,3 +22,8 @@ app-logs:
 .PHONY: app-shell
 app-shell:
 	$(EXEC) $(APP_CONTAINER) /bin/bash
+
+
+.PHONY: test
+test:
+	$(EXEC) $(APP_CONTAINER) pytest

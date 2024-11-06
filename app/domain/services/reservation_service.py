@@ -1,9 +1,9 @@
 # app/domain/services/reservation_service.py
 
 from typing import List
-from app.domain.entities.reservation import Reservation
-from app.application.interfaces.reservation_repository_interface import ReservationRepositoryInterface
-from app.domain.exceptions.reservation_exceptions import ReservationNotFoundException
+from domain.entities.reservation import Reservation
+from application.interfaces.reservation_repository_interface import ReservationRepositoryInterface
+from domain.exceptions.reservation_exceptions import ReservationNotFoundException
 
 
 class ReservationService:

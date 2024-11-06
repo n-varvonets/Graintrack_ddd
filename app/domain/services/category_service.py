@@ -1,9 +1,9 @@
 # app/domain/services/category_service.py
 
 from typing import List, Optional
-from app.domain.entities.category import Category
-from app.application.interfaces.category_repository_interface import CategoryRepositoryInterface
-from app.domain.exceptions.category_exceptions import CategoryNotFoundException
+from domain.entities.category import Category
+from application.interfaces.category_repository_interface import CategoryRepositoryInterface
+from domain.exceptions.category_exceptions import CategoryNotFoundException
 
 class CategoryService:
     def __init__(self, category_repository: CategoryRepositoryInterface):
@@ -31,13 +31,11 @@ class CategoryService:
         """
         self.category_repository.delete(category_id)
 
-    def get_category_by_id(self, category_id: str) -> Category:
+    async def get_category_by_id(self, category_id: str) -> Category:
         """
         Получает категорию по ее идентификатору.
         """
-        category = self.category_repository.get_by_id(category_id)
-        if not category:
-            raise CategoryNotFoundException(category_id=category_id)
+        category = await self.category_repository.get_by_id(category_id)
         return category
 
     def get_all_categories(self) -> List[Category]:

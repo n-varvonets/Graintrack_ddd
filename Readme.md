@@ -89,6 +89,9 @@ online_store/
 │   │   │   ├── models.py       # SQLAlchemy models for database tables
 │   │   │   ├── session.py      # Database session management
 │   │   │   └── __init__.py
+│   │   ├── converters/
+│   │   │   ├── product_converters.py       
+│   │   │   └── __init__.py
 │   │   └── __init__.py
 │
 │   ├── application/            # Application logic (DTOs and Interfaces)

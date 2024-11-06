@@ -2,9 +2,9 @@
 
 from typing import List, Optional
 from datetime import datetime
-from app.domain.entities.sale import Sale
-from app.application.interfaces.sale_repository_interface import SaleRepositoryInterface
-from app.domain.exceptions.sale_exceptions import SaleNotFoundException
+from domain.entities.sale import Sale
+from application.interfaces.sale_repository_interface import SaleRepositoryInterface
+from domain.exceptions.sale_exceptions import SaleNotFoundException
 
 
 class SaleService:
