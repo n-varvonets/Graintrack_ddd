@@ -1,6 +1,9 @@
 # FastAPI E-Commerce API Project Guide
 
-This guide outlines the architecture and directory structure of a FastAPI-based REST API for an e-commerce application. The project follows Domain-Driven Design (DDD), includes Docker for containerization, Poetry for dependency management, and `pytest` for testing.
+This guide outlines the architecture and directory structure of a FastAPI-based REST API for an e-commerce application. The project follows Domain-Driven Design (DDD), includes Docker for containerization, punq for dependency management, and `pytest` for testing.
+
+## Technical Task
+- [Technical Task](./tech_task.md)
 
 ## Table of Contents
 
@@ -18,19 +21,6 @@ This guide outlines the architecture and directory structure of a FastAPI-based 
 12. [Dependencies](#dependencies)
 13. [Configuration and Running the Application](#configuration-and-running-the-application)
 14. [Testing](#testing)
-15. [Code Style and Documentation](#code-style-and-documentation)
-16. [Docker Integration](#docker-integration)
-
----
-
-## Project Overview
-
-The application implements a REST API with operations to:
-- Manage products (CRUD operations with filtering and discount features).
-- Handle user interactions (reservation, cancellation, sales).
-- Track inventory and generate sales reports.
-
-The API should support paginated responses and integrate Swagger for automatic documentation. Each component follows DDD principles, and the project is structured with clear separation of concerns.
 
 ---
 
@@ -42,9 +32,6 @@ online_store/
 ├── pyproject.toml
 ├── poetry.lock
 ├── .env
-├── docs/
-│   └── architecture_diagram.png
-│
 ├── docker-compose/
 │   ├── app.yaml
 │   ├── Dockerfile
