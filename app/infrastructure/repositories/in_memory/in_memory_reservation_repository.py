@@ -10,7 +10,7 @@ class InMemoryReservationRepository(ReservationRepositoryInterface):
     def __init__(self):
         self.reservations = {}
 
-    def add(self, reservation: Reservation) -> Reservation:
+    async def add(self, reservation: Reservation) -> Reservation:
         self.reservations[reservation.oid] = reservation
         return reservation
 

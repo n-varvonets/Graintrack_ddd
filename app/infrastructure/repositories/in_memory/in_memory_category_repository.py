@@ -20,17 +20,17 @@ class InMemoryCategoryRepository(CategoryRepositoryInterface):
             raise CategoryNotFoundException(category_id)
         return category
 
-    def update(self, category: Category) -> None:
+    async def update(self, category: Category) -> None:
         if category.oid not in self.categories:
             raise CategoryNotFoundException(category_id=category.oid)
         self.categories[category.oid] = category
 
-    def delete(self, category_id: str) -> None:
+    async def delete(self, category_id: str) -> None:
         if category_id not in self.categories:
             raise CategoryNotFoundException(category_id=category_id)
         del self.categories[category_id]
 
-    def get_all(self) -> List[Category]:
+    async def get_all(self) -> List[Category]:
         return list(self.categories.values())
 
     def get_subcategories(self, parent_category_id: str) -> List[Category]:

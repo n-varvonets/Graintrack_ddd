@@ -16,7 +16,7 @@ class CategoryRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def get_by_id(self, category_id: str) -> Optional[Category]:
+    async def get_by_id(self, category_id: str) -> Optional[Category]:
         """
         Получает категорию по ее идентификатору.
 
@@ -44,7 +44,7 @@ class CategoryRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def get_all(self) -> List[Category]:
+    async def get_all(self) -> List[Category]:
         """
         Получает список всех категорий.
 

@@ -7,7 +7,7 @@ from domain.entities.reservation import Reservation
 
 class ReservationRepositoryInterface(ABC):
     @abstractmethod
-    def add(self, reservation: Reservation) -> Reservation:
+    async def add(self, reservation: Reservation) -> Reservation:
         """
         Добавляет новое резервирование в репозиторий.
 

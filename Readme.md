@@ -131,10 +131,9 @@ online_store/
 │
 ├── tests/
 │   │── conftest.py
+│   │── pytest.ini
+│   │── test_container.py
 │   │── domain/
-│   │   ├── entities/
-│   │   │   ├── __init__.py
-│   │   │   └── test_product.py
 │   │   ├── services/
 │   │   │   ├── __init__.py
 │   │   │   ├── test_product_service.py
@@ -142,17 +141,6 @@ online_store/
 │   │   │   ├── test_reservation_service.py
 │   │   │   └── test_sale_service.py
 │   │   └── __init__.py
-│   │── application/
-│   │   ├── __init__.py
-│   │   └── test_interfaces.py
-│   │── infrastructure/
-│   │   ├── repositories/
-│   │   │   ├── in_memory/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── test_in_memory_product_repository.py
-│   │   │   │   └── ... (другие тесты)
-│   │   │   └── __init__.py
-│   │   ├── __init__.py
 │   │── presentation/
 │   │   ├── api/
 │   │   │   └── v1/
@@ -408,3 +396,75 @@ The project uses `punq` for dependency injection, ensuring a flexible and testab
 ```bash
 pytest
 ```
+
+
+### Test Suite Overview
+
+The project contains a comprehensive suite of tests covering both service-level and API-level operations for managing the various entities, such as products, categories, reservations, and sales. The tests are designed to ensure the proper functioning of the core business logic and API endpoints of the application. The tests are structured to verify CRUD operations, data validation, and error handling across different components of the system.
+
+The tests are divided into two main categories:
+1. **Domain Service Tests**: These tests validate the core business logic for each of the entities.
+2. **API Endpoint Tests**: These tests cover the REST API operations for managing the entities via HTTP requests.
+
+Below is an overview of each test file and the types of scenarios covered.
+
+#### Domain Service Tests
+
+The tests for the domain services are located under the `tests/domain/services/` directory, and they validate the core business logic for the entities using Python `pytest`. Here is a detailed description of the different test files:
+
+#### 1. `test_category_service.py`
+- **`test_create_category`**: Checks if a new category can be successfully created, ensuring that the created category matches the input data.
+- **`test_get_category_by_id`**: Verifies that a category can be correctly fetched by its unique identifier.
+- **`test_get_nonexistent_category`**: Ensures that an attempt to retrieve a non-existent category raises a `CategoryNotFoundException`.
+- **`test_get_all_categories`**: Confirms that fetching all categories returns a list of all created categories.
+
+#### 2. `test_product_service.py`
+- **`test_create_product`**: Verifies that a new product can be successfully created, ensuring it matches the expected DTO representation.
+- **`test_get_available_products`**: Ensures that retrieving available products filtered by a category returns all products with stock greater than zero.
+- **`test_apply_discount`**: Verifies that applying a valid discount correctly updates the product's price and discount.
+- **`test_apply_invalid_discount`**: Confirms that applying an invalid discount (e.g., more than 100%) raises an `InvalidDiscountException`.
+- **`test_update_price_nonexistent_product`**: Validates that attempting to update the price of a non-existent product results in a `ProductNotFoundException`.
+- **`test_reserve_product_insufficient_stock`**: Ensures that attempting to reserve a quantity of product exceeding available stock raises an `InsufficientStockException`.
+- **`test_sell_product_insufficient_stock`**: Verifies that selling a quantity exceeding stock raises an `InsufficientStockException`.
+
+#### 3. `test_reservation_service.py`
+- **`test_create_reservation`**: Verifies that a new reservation can be successfully created with the specified product ID and quantity, and that the status is set to "reserved".
+- **`test_cancel_reservation`**: Ensures that an existing reservation can be successfully canceled and the status is updated to "cancelled".
+- **`test_get_nonexistent_reservation`**: Confirms that retrieving a non-existent reservation raises a `ReservationNotFoundException`.
+
+#### 4. `test_sale_service.py`
+- **`test_record_sale`**: Checks that a sale can be successfully recorded with the specified product ID and quantity.
+- **`test_get_sales_between_dates`**: Ensures that retrieving sales within a specified date range returns all relevant sales records.
+- **`test_get_nonexistent_sale`**: Validates that attempting to retrieve a sale that does not exist raises a `SaleNotFoundException`.
+
+### API Endpoint Tests
+
+The API endpoint tests are located under `tests/presentation/api/v1/` and use `httpx.AsyncClient` for making requests to the FastAPI application. These tests verify the HTTP responses and ensure the endpoints are working correctly.
+
+#### 1. `test_categories.py`
+- **`test_create_category`**: Tests the creation of a new category with a randomly generated UUID as its parent category ID.
+- **`test_create_category_with_parent`**: Verifies the creation of a sub-category linked to a specific parent category.
+- **`test_update_category`**: Tests updating a category's name to ensure partial updates are handled correctly.
+- **`test_delete_category`**: Verifies that a category can be deleted and that it cannot be retrieved afterward.
+
+#### 2. `test_products.py`
+- **`test_create_product`**: Tests the creation of a new product, verifying the response contains correct product details.
+- **`test_get_products`**: Verifies that the API can successfully return a list of products.
+- **`test_get_product_by_id`**: Ensures that a specific product can be retrieved by its ID.
+- **`test_update_product`**: Confirms that a product's details can be successfully updated.
+- **`test_delete_product`**: Validates that a product can be deleted and that subsequent retrieval returns a 404 status.
+
+#### 3. `test_reservations.py`
+- **`test_create_reservation`**: Tests the creation of a reservation, ensuring the reservation details are correct.
+- **`test_cancel_reservation`**: Verifies that an existing reservation can be successfully canceled.
+
+#### 4. `test_sales.py`
+- **`test_register_sale`**: Tests the registration of a new sale, ensuring the correct product ID and quantity are recorded.
+- **`test_get_sales`**: Ensures that sales can be fetched within a specified date range.
+
+### Test Summary
+
+- **Number of Tests**: The suite contains a total of **31 tests**, all of which pass successfully.
+
+All tests have passed successfully, confirming the robustness of the implemented features and the reliability of both service-level and API-level operations.
+

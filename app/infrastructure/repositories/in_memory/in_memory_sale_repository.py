@@ -6,42 +6,46 @@ from domain.entities.sale import Sale
 from application.interfaces.sale_repository_interface import SaleRepositoryInterface
 from domain.exceptions.sale_exceptions import SaleNotFoundException
 
+
 class InMemorySaleRepository(SaleRepositoryInterface):
     def __init__(self):
         self.sales = {}
 
-    def add(self, sale: Sale) -> Sale:
+    async def add(self, sale: Sale) -> Sale:
         self.sales[sale.oid] = sale
         return sale
 
-    def get_by_id(self, sale_id: str) -> Optional[Sale]:
+    async def get_by_id(self, sale_id: str) -> Optional[Sale]:
         sale = self.sales.get(sale_id)
         if not sale:
             raise SaleNotFoundException(sale_id=sale_id)
         return sale
 
-    def delete(self, sale_id: str) -> None:
+    async def delete(self, sale_id: str) -> None:
         if sale_id not in self.sales:
             raise SaleNotFoundException(sale_id=sale_id)
         del self.sales[sale_id]
 
-    def get_all(self) -> List[Sale]:
+    async def get_all(self) -> List[Sale]:
         return list(self.sales.values())
 
-    def get_by_product_id(self, product_id: str) -> List[Sale]:
+    async def get_by_product_id(self, product_id: str) -> List[Sale]:
         return [
             sale for sale in self.sales.values()
             if sale.product_id == product_id
         ]
 
-    def get_sales_between_dates(
-        self,
-        start_date: Optional[datetime],
-        end_date: Optional[datetime]
+    async def get_sales_between_dates(
+            self, start_date: Optional[datetime],
+            end_date: Optional[datetime],
+            category_id: Optional[str] = None
     ) -> List[Sale]:
         sales = self.sales.values()
         if start_date:
             sales = filter(lambda s: s.sale_date >= start_date, sales)
         if end_date:
             sales = filter(lambda s: s.sale_date <= end_date, sales)
+        if category_id:
+            sales = filter(lambda s: s.category_id == category_id, sales)
         return list(sales)
+

@@ -1,7 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from .base_entity import BaseEntity
-import uuid
 
 @dataclass
 class Reservation(BaseEntity):
@@ -10,7 +9,7 @@ class Reservation(BaseEntity):
 
     Possible values for status: reserved, cancelled
     """
-    product_id: uuid.UUID
+    product_id: str
     quantity: int
     status: str = "reserved"   # can be 'reserved' or 'cancelled'
     reserved_at: datetime = field(default_factory=datetime.now)

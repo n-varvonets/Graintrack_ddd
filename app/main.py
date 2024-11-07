@@ -19,19 +19,26 @@ def create_app(container=None) -> FastAPI:
     if container is None:
         container = init_container()
 
-    # Устанавливаем контейнер в состоянии приложения
     app.state.container = container
 
-    from presentation.api.v1.endpoints import products, reservations, sales
+    from presentation.api.v1.endpoints import products, reservations, sales, categories
     app.include_router(products.router, prefix="/api/v1")
-    # app.include_router(reservations.router, prefix="/api/v1")
-    # app.include_router(sales.router, prefix="/api/v1")
+    app.include_router(reservations.router, prefix="/api/v1")
+    app.include_router(sales.router, prefix="/api/v1")
+    app.include_router(categories.router, prefix="/api/v1")
 
     @app.exception_handler(ApplicationException)
     async def application_exception_handler(request: Request, exc: ApplicationException):
         return JSONResponse(
             status_code=400,
             content={"detail": exc.message}
+        )
+
+    @app.exception_handler(ValueError)
+    async def value_error_handler(request: Request, exc: ValueError):
+        return JSONResponse(
+            status_code=400,
+            content={"detail": str(exc)}
         )
 
     return app
